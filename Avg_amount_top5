@@ -1,0 +1,13 @@
+## Average amount paid by top 5 customers 
+
+WITH CTE_Table (Total_AVG_Paid, first_name,last_name,country, city) AS
+(SELECT SUM (amount) AS Total_AVG_Paid, A.customer_id, B.first_name,B.last_name,E.country, D.city
+FROM payment A
+INNER JOIN customer B ON A.customer_id = B.customer_id
+INNER JOIN address C ON B.address_id = C.address_id
+INNER JOIN city D ON C.city_id = D.city_id
+INNER JOIN country E ON D.country_id = E.country_id
+Where city in ('London', 'Aurora', 'Santiago de Aompstela', 'Iwaki', 'Shanwei', 'Nador', 'Tianjin', 'Benguela', 'Rustenburg', 'Newcastle')
+GROUP BY A.customer_id,B.first_name,B.last_name,E.country, D.city ORDER BY Total_AVG_Paid DESC
+LIMIT 1)
+SELECT Total_AVG_Paid FROM CTE_Table
